@@ -1,0 +1,59 @@
+---
+title: 'Asynchronous Array Loops in JavaScript'
+date: '2023-09-10'
+tags: ['javascript', 'asynchronous', 'loops']
+---
+
+### Asynchronous Array Loops in JavaScript
+
+Asynchronous programming is essential when dealing with time-consuming tasks, such as fetching data from an API or reading from a file. In JavaScript, you can use asynchronous array loops to efficiently handle such tasks. Let's explore how to use asynchronous functions and loops to process an array of items asynchronously.
+
+Consider the following example:
+
+```javascript
+const asyncUppercase = item =>
+  new Promise(resolve =>
+    setTimeout(
+      () => resolve(item.toUpperCase()),
+      Math.floor(Math.random() * 1000)
+    )
+  );
+
+const uppercaseItems = async () => {
+  const items = ['a', 'b', 'c'];
+  for (item of items) {
+    const uppercaseItem = await asyncUppercase(item);
+    console.log(uppercaseItem);
+  }
+
+  console.log('Items processed');
+};
+
+uppercaseItems();
+// LOGS: 'A', 'B', 'C', 'Items processed'
+```
+
+In the following code snippet, we have an array of items containing lowercase letters 'a,' 'b,' and 'c.' Our goal is to convert each item to uppercase asynchronously using the `asyncUppercase` function, which simulates asynchronous behavior with a random delay.
+
+Here's a breakdown of how the asynchronous array loop works:
+
+- We define an `asyncUppercase` function that takes an item as input and returns a Promise. This Promise resolves after a random delay, transforming the item to uppercase.
+
+- In the `uppercaseItems` function, we have an array called `items` that contains our lowercase items.
+
+- We use a `for...of` loop to iterate through each item in the `items` array.
+
+- Inside the loop, we use the `await` keyword to wait for the `asyncUppercase` function to complete asynchronously. This ensures that each item is processed one at a time.
+
+- After processing each item and converting it to uppercase, we log the result to the console.
+
+- Finally, we log 'Items processed' after all items have been processed.
+
+When you run this code, you'll see that the items are processed asynchronously, with each item being converted to uppercase and logged to the console. The order of processing may vary due to the random delays introduced by the `asyncUppercase` function.
+
+This example demonstrates how to use asynchronous array loops to handle asynchronous tasks in JavaScript, making it especially useful for scenarios like API calls and I/O operations.
+
+### Bonus
+### forEach is BAD! for Async Await Code | Advanced Async/Await Javascript Tutorial
+
+<Video id="4lqJBBEpjRE&t=561s" />
